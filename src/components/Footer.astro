@@ -1,0 +1,69 @@
+---
+import Hr from "./Hr.astro";
+import Socials from "./Socials.astro";
+import LinkButton from "@components/LinkButton.astro";
+
+const currentYear = new Date().getFullYear();
+
+export interface Props {
+  noMarginTop?: boolean;
+}
+
+const { noMarginTop = false } = Astro.props;
+---
+
+<footer class={`${noMarginTop ? "" : "mt-auto"}`}>
+  <Hr noPadding />
+  <div class="footer-wrapper">
+    <Socials centered />
+    <div class="copyright-wrapper">
+      <p>Copyright &#169; {currentYear}</p>
+      <p class="separator">&nbsp;|&nbsp;</p>
+      <p>
+        <span>Powered by</span>
+        <LinkButton
+          href="https://astro.build/"
+          target="_blank"
+          className="hover:text-skin-accent underline underline-offset-4 decoration-dashed"
+        >
+          Astro
+        </LinkButton>
+        And
+        <LinkButton
+          href="https://github.com/satnaing/astro-paper"
+          target="_blank"
+          className="hover:text-skin-accent underline underline-offset-4 decoration-dashed"
+        >
+          AstroPaper
+        </LinkButton>
+        <span>.</span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    @apply w-full;
+  }
+
+  .footer-wrapper {
+    @apply flex flex-col items-center justify-between py-6 sm:flex-row-reverse sm:py-4;
+  }
+
+  .link-button {
+    @apply my-1 p-2 hover:rotate-6;
+  }
+
+  .link-button svg {
+    @apply scale-125;
+  }
+
+  .copyright-wrapper {
+    @apply my-2 flex flex-col items-center whitespace-nowrap sm:flex-row;
+  }
+
+  .separator {
+    @apply hidden sm:inline;
+  }
+</style>
