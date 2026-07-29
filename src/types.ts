@@ -6,6 +6,11 @@ export type Site = {
   ogImage: string;
   lightAndDarkMode: boolean;
   postPerPage: number;
+  knowledgeBase?: {
+    enabled: boolean;
+    title: string;
+    description: string;
+  };
 };
 
 export type SocialObjects = {

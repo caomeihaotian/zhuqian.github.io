@@ -8,6 +8,11 @@ export const SITE: Site = {
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerPage: 8,
+  knowledgeBase: {
+    enabled: true,
+    title: "知识库",
+    description: "面向 AI 与读者的文章索引、摘要和本地检索入口。",
+  },
 };
 
 export const LOCALE = ["zh-CN"]; // set to [] to use the environment default

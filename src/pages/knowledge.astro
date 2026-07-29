@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import KnowledgeExplorer from "@components/KnowledgeExplorer";
+import getSortedPosts from "@utils/getSortedPosts";
+import { toKnowledgeDocuments } from "@utils/knowledge";
+
+const posts = await getCollection("blog", ({ data }) => !data.draft);
+const documents = toKnowledgeDocuments(getSortedPosts(posts));
+---
+
+<Layout
+  title={`${SITE.knowledgeBase?.title ?? "知识库"} | ${SITE.title}`}
+  description={SITE.knowledgeBase?.description ?? SITE.desc}
+>
+  <Header activeNav="knowledge" />
+  <Main
+    pageTitle={SITE.knowledgeBase?.title ?? "知识库"}
+    pageDesc={SITE.knowledgeBase?.description ?? "文章摘要与知识库检索"}
+  >
+    <p class="mt-4 opacity-80">
+      这里把博客文章整理为面向读者和 AI 的知识库：每篇文章都有摘要、标签、知识点和可检索全文。
+    </p>
+    <div class="mt-4 flex flex-wrap gap-3 text-sm">
+      <a class="underline" href="/knowledge-base.json">knowledge-base.json</a>
+      <a class="underline" href="/llms.txt">llms.txt</a>
+    </div>
+    <KnowledgeExplorer client:load documents={documents} />
+  </Main>
+  <Footer />
+</Layout>

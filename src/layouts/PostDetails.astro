@@ -6,6 +6,7 @@ import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
+import { getPostSummary } from "@utils/knowledge";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -14,6 +15,7 @@ export interface Props {
 const { post } = Astro.props;
 
 const { title, author, description, ogImage, pubDatetime, tags } = post.data;
+const summary = getPostSummary(post);
 
 const { Content } = await post.render();
 
@@ -38,6 +40,11 @@ const ogUrl = new URL(ogImage ? ogImage : `${title}.png`, Astro.url.origin)
   <main id="main-content">
     <h1 class="post-title">{title}</h1>
     <Datetime datetime={pubDatetime} size="lg" className="my-2" />
+    <section class="article-summary" aria-labelledby="article-summary-title">
+      <div class="summary-label">AI 文章总结</div>
+      <h2 id="article-summary-title">快速了解本文</h2>
+      <p>{summary}</p>
+    </section>
     <article id="article" role="article" class="prose mx-auto mt-8 max-w-4xl">
       <Content />
     </article>
@@ -58,5 +65,17 @@ const ogUrl = new URL(ogImage ? ogImage : `${title}.png`, Astro.url.origin)
   }
   .tags-container {
     @apply my-8;
+  }
+  .article-summary {
+    @apply mx-auto mt-8 max-w-4xl rounded border border-skin-line bg-skin-card p-5;
+  }
+  .article-summary h2 {
+    @apply m-0 text-xl font-semibold text-skin-accent;
+  }
+  .article-summary p {
+    @apply mt-3 whitespace-pre-line leading-7 opacity-90;
+  }
+  .summary-label {
+    @apply mb-2 text-sm font-semibold uppercase;
   }
 </style>
