@@ -1,6 +1,8 @@
 # 博客知识库与文章总结
 
-本项目参考 `gastrodia/blog` 的 RAG 知识库和文章总结思路，采用适合 GitHub Pages 静态部署的轻量实现。
+本项目参考 `gastrodia/blog` 的 RAG 知识库和文章总结思路：这是一个基于 Astro 的现代化个人博客，集成了 RAG 知识库、AI 文章总结等功能。
+
+当前实现采用适合 GitHub Pages 静态部署的轻量方案。
 
 ## 已实现功能
 
